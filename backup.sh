@@ -4,19 +4,19 @@ set -e # Exit on any error
 : ${HOST:=mongo}
 : ${DB:=R20}
 : ${DIR:=/dump}
-: ${DAY:=$(date +%F)}
+: ${TIME:=$(date +%F)}
 
-mkdir -p $DIR
-cd       $DIR
+mkdir -p "$DIR"
+cd       "$DIR"
 
 mongodump \
-  -host $HOST \
-  -db   $DB \
-  -out  $DB-$DAY
+  -host "$HOST" \
+  -db   "$DB" \
+  -out  "$DB-$TIME"
 
-tar czf $DB-$DAY.tar.gz $DB-$DAY
+tar czf "$DB-$TIME.tar.gz" "$DB-$TIME"
 
-rm -rf  $DB-$DAY
+rm -rf  "$DB-$TIME"
 
 # TODO: If mailgun key is provided then send backup
 # if test -n $MAILGUNKEY; then
@@ -26,7 +26,7 @@ rm -rf  $DB-$DAY
 #     test -n $MAILGUNKEY/messages \
 #     -F from='Responsa.eu Guardian Angel <backups@responsa.eu>' \
 #     -F to='stuff@responsa.eu' \
-#     -F subject="Today's database backup" \
-#     -F text="Attached please find today's backup of Responsa.eu database."
+#     -F subject="ToTIME's database backup" \
+#     -F text="Attached please find toTIME's backup of Responsa.eu database."
 #     -F attachment=@$DB-$DATE.tar.gz
 # fi
