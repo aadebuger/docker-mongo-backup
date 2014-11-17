@@ -12,11 +12,11 @@ cd       "$DIR"
 mongodump \
   -host "$HOST" \
   -db   "$DB" \
-  -out  "$DB-$TIME"
+  -out  "./$DB-$TIME"
 
-tar czf "$DB-$TIME.tar.gz" "$DB-$TIME"
+tar czf "./$DB-$TIME.tar.gz" "./$DB-$TIME"
 
-rm -rf  "$DB-$TIME"
+rm -rf  "./$DB-$TIME"
 
 # TODO: If mailgun key is provided then send backup
 # if test -n $MAILGUNKEY; then
