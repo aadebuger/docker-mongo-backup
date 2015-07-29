@@ -1,18 +1,20 @@
 set -e # Exit on any error
-
+export
 # Default variables - one can override them in docker run invocation
 : ${HOST:=mongo}
-: ${DB:=R20}
+: ${DB:=test_database}
 : ${DIR:=/dump}
 : ${TIME:=$(date +%F)}
 
 mkdir -p "$DIR"
 cd       "$DIR"
+echo $MONGO_PORT_27017_TCP_ADDR
 
+echo "$HOST"
 mongodump \
-  -host "$HOST" \
-  -db   "$DB" \
-  -out  "./$DB-$TIME"
+  --host "$MONGO_PORT_27017_TCP_ADDR" \
+  --db   "$DB" \
+  --out  "./$DB-$TIME"
 
 tar czf "./$DB-$TIME.tar.gz" "./$DB-$TIME"
 
